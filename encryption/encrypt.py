@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import string
 
 
 def encrypt(text: str, key: int) -> str:
@@ -7,21 +8,32 @@ def encrypt(text: str, key: int) -> str:
     by rotating it LEFT of key number of positions.
     Returns the rotated text.
     """
-    pass
+    testo = text.read()
+    testo = testo.lower()
+    output = ""
+
+    for char in testo:
+        if char.isalpha():
+            ascii_code = ord(char) - ord('a')
+            new_code = (ascii_code + int(key)) % 26
+            new_char = chr(new_code + ord('a'))
+            output += new_char
+        else:
+            output += char 
+    return str(output)
 
 
 def _main():
     load_dotenv()
     # read your secret encryption key from the .env file
-    k = os.getenv("CIPHER_KEY")
-    print(type(k))
+    k = os.getenv("KEY")
     # read from encrypt_input.txt
-    with open("./encryption/encrypt_input.txt") as input:
-        print(input.readlines())
+    text = open("./encryption/encrypt_input.txt")
     # call encrypt on each line with your key
-    # write the encrypted lines to encrypt_output.txtc
+    # write the encrypted lines to encrypt_output.txt
     with open("./encryption/encrypt_output.txt", "w") as output:
-        output.write("TEST")
+        output.write(encrypt(text, k))
+
    
 
 
