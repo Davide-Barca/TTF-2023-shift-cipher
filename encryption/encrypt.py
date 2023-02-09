@@ -8,8 +8,7 @@ def encrypt(text: str, key: int) -> str:
     by rotating it LEFT of key number of positions.
     Returns the rotated text.
     """
-    testo = text.read()
-    testo = testo.lower()
+    testo = text.lower()
     output = ""
 
     for char in testo:
@@ -29,6 +28,7 @@ def _main():
     k = os.getenv("KEY")
     # read from encrypt_input.txt
     text = open("./encryption/encrypt_input.txt")
+    text = text.read()
     # call encrypt on each line with your key
     # write the encrypted lines to encrypt_output.txt
     with open("./encryption/encrypt_output.txt", "w") as output:
