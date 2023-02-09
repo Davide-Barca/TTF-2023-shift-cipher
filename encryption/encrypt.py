@@ -8,8 +8,11 @@ def encrypt(text: str, key: int) -> str:
     by rotating it LEFT of key number of positions.
     Returns the rotated text.
     """
-    testo = text.read()
-    testo = testo.lower()
+
+    if type(key) is not int or key < 0:
+        raise ValueError("Key must be >= 0")
+
+    testo = text.lower()
     output = ""
 
     for char in testo:
@@ -19,8 +22,8 @@ def encrypt(text: str, key: int) -> str:
             new_char = chr(new_code + ord('a'))
             output += new_char
         else:
-            output += char 
-    return str(output)
+            output += char
+    return output
 
 
 def _main():
@@ -29,10 +32,11 @@ def _main():
     k = os.getenv("KEY")
     # read from encrypt_input.txt
     text = open("./encryption/encrypt_input.txt")
+    testo = text.read()
     # call encrypt on each line with your key
     # write the encrypted lines to encrypt_output.txt
     with open("./encryption/encrypt_output.txt", "w") as output:
-        output.write(encrypt(text, k))
+        output.write(encrypt(testo, k))
 
    
 
